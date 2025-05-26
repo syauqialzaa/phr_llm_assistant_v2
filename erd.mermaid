@@ -1,0 +1,483 @@
+erDiagram
+    ROLES {
+        INT role_id PK
+        VARCHAR role_name
+        TEXT role_desc
+    }
+    
+    USERS {
+        VARCHAR user_id PK
+    }
+    
+    EXCEPTIONS {
+        VARCHAR except_code PK
+        TEXT except_name
+        TEXT except_desc
+        TEXT except_kind
+        TEXT except_type
+        INT priority
+        INT total_exception
+    }
+    
+    ACTIONS {
+        VARCHAR action_id PK
+        TEXT action_code
+        TEXT action_name
+        TEXT action_desc
+        TEXT action_type
+        INT total_action
+        TEXT type_data
+    }
+    
+    WORKFLOWS {
+        VARCHAR workflow_id PK
+    }
+    
+    EXCEPTION_SIGNALS {
+        INT exception_signal_id PK
+        VARCHAR user_id FK
+        INT role_id FK
+        VARCHAR except_code FK
+    }
+    
+    PASSED_SIGNALS {
+        INT passed_signal_id PK
+        INT role_id FK
+        VARCHAR action_id FK
+        VARCHAR workflow_id FK
+    }
+    
+    WORKFLOW_STEPS {
+        INT workflow_step_id PK
+        VARCHAR action_id FK
+        INT step_number
+        INT role_id FK
+        TEXT step_desc
+        TEXT action_taken
+        TEXT workflow_status
+        TEXT remark
+        VARCHAR inputed_by
+        DATETIME inputed_date
+        VARCHAR workflow_id FK
+        TEXT bf_action_taken
+        TEXT filename
+        TEXT files
+        TEXT attachment_id
+    }
+    
+    WELLS {
+        INT well_id PK
+        VARCHAR uwi
+        VARCHAR string_code
+        VARCHAR string_name
+        VARCHAR grid_name
+        VARCHAR alt_name
+    }
+    
+    WELL_LOCATIONS {
+        INT location_id PK
+        INT well_id FK
+        VARCHAR sub_production_unit_code
+        VARCHAR field
+        VARCHAR area
+        VARCHAR area_code
+        VARCHAR arse
+        VARCHAR sub_area_code
+        VARCHAR fcty1_code
+        VARCHAR fcty2_code
+        VARCHAR region
+        VARCHAR sub_region
+        VARCHAR asset_area
+    }
+    
+    WELL_STATUS {
+        INT status_id PK
+        INT well_id FK
+        DATETIME status_start_date
+        DATETIME pis_date
+        VARCHAR drill_type
+        VARCHAR prod_string_type
+        VARCHAR status_type
+        VARCHAR status
+        INT awt_tier
+        INT global_tier
+        VARCHAR sand
+        VARCHAR completion_type
+        VARCHAR commingle_status
+        DATETIME wt_date
+        VARCHAR lowis_alarm
+        DATETIME lowis_scandate
+        DATETIME dyno_test_date
+    }
+    
+    WELL_PRODUCTION {
+        INT production_id PK
+        INT well_id FK
+        INT avg_alloc_bfpd3_mo
+        INT avg_alloc_bopd3_mo
+        INT avg_alloc_bwpd3_mo
+        INT avg_alloc_gas3_mo
+        INT avg_theor_bfpd3_mo
+        INT avg_theor_bopd3_mo
+        INT avg_theor_bwpd3_mo
+        INT avg_theor_gas3_mo
+        DECIMAL avg_wt_bfpd3_mo
+        DECIMAL avg_wt_bopd3_mo
+        DECIMAL avg_wt_bwpd3_mo
+        DECIMAL avg_wt_wc3_mo
+        VARCHAR avg_wt_gas3_mo
+        DECIMAL avg5_wt_bf_bopd
+        DECIMAL avg5_wt_bf_bfpd
+        DECIMAL avg5_wt_bf_bwpd
+        INT alloc_bfpd
+        INT alloc_bopd
+        INT alloc_bwpd
+        VARCHAR alloc_gas
+        INT theor_bfpd
+        INT theor_bopd
+        INT theor_bwpd
+        VARCHAR theor_gas
+        DECIMAL wt_bfpd
+        DECIMAL wt_bopd
+        DECIMAL wt_bwpd
+        DECIMAL wt_wc
+        INT gor
+    }
+    
+    WELL_TESTS {
+        INT test_id PK
+        INT well_id FK
+        VARCHAR pump_fill
+        VARCHAR pump_slip
+        VARCHAR gross_disp
+        VARCHAR net_disp
+        VARCHAR pump_speed
+        VARCHAR pump_stroke
+        VARCHAR dyno_wht
+        VARCHAR tubing_press_up
+        VARCHAR tubing_press_down
+        VARCHAR csg_press_dn
+        DATETIME install_date
+        VARCHAR pump_type
+        VARCHAR pump_info
+        VARCHAR pump_size
+        VARCHAR plug_back_depth
+        VARCHAR pump_depth
+        VARCHAR tubing_size
+        VARCHAR prdcsg_od
+        VARCHAR prdcsg_bott
+        VARCHAR scrliner_od
+        VARCHAR scrliner_top
+        VARCHAR scrliner_bott
+        DATETIME down_date
+        VARCHAR hrs_since_off
+        VARCHAR days_since_off
+        VARCHAR bopd_defered
+        VARCHAR total_down_oil
+        VARCHAR sor_ss
+        VARCHAR proact_or_react
+    }
+    
+    WELL_TEST_METRICS {
+        INT metric_id PK
+        INT well_id FK
+        VARCHAR avg_pfill3_mo
+        VARCHAR avg_pslip3_mo
+        VARCHAR avg_gross_disp3_mo
+        VARCHAR avg_net_disp3_mo
+        VARCHAR avg_pump_speed3_mo
+        VARCHAR avg_pstroke3_mo
+        VARCHAR avg_wht3_mo
+        VARCHAR avg_tbgp_up3_mo
+        VARCHAR avg_tbgp_down3_mo
+        VARCHAR avg_csgp_dn3_mo
+    }
+    
+    WELL_EXTRA_INFO {
+        INT extra_id PK
+        INT well_id FK
+        VARCHAR wt_train
+        VARCHAR commingle_list
+        VARCHAR manifold
+        VARCHAR new_manifold
+    }
+    
+    OUTSTANDING_EXCEPTIONS {
+        INT out_exception_id PK
+        VARCHAR signal_code
+        INT well_id FK
+        VARCHAR string_code
+        VARCHAR string_name
+        VARCHAR status_well
+        VARCHAR current_well_status
+        VARCHAR signal_remark
+        VARCHAR total_exception
+        VARCHAR list_exception
+        DATETIME last_wt_date
+        INT last_bopd
+        INT delta_bopd
+        INT last_bfpd
+        INT delta_bfpd
+        VARCHAR type_data
+        VARCHAR except_code FK
+        VARCHAR pump_type
+        VARCHAR alt_name
+        VARCHAR grid_name
+        VARCHAR wt_train
+        VARCHAR new_manifold
+        VARCHAR commingle_list
+        VARCHAR fluid_above_pump
+        VARCHAR prod_string_type
+    }
+    
+    OUTSTANDING_PASSEDS {
+        INT out_passed_id PK
+        VARCHAR action_id FK
+        VARCHAR workflow_id FK
+        VARCHAR ids
+        VARCHAR action_status
+        VARCHAR action_code
+        VARCHAR action_desc
+        INT well_id FK
+        VARCHAR string_code
+        VARCHAR string_name
+        VARCHAR status_well
+        VARCHAR action_flow_step
+        VARCHAR percentage
+        VARCHAR finding
+        VARCHAR job_plan
+        VARCHAR remark
+        VARCHAR est_bopd
+        VARCHAR dpi
+        VARCHAR passed_by
+        DATETIME passed_date
+        VARCHAR action_originator
+        DATETIME action_date
+        INT workflow_step
+        INT total_workflow_step
+        VARCHAR alt_name
+        VARCHAR grid_name
+        INT role_id FK
+        VARCHAR wt_train
+        VARCHAR new_manifold
+        VARCHAR ptm_region
+        VARCHAR zona
+    }
+    
+    DIFA {
+        INT difa_id PK
+        INT well_id FK
+        VARCHAR string_id
+        DATETIME install_date
+        VARCHAR pump_sno
+        DATETIME pull_date
+        DATETIME inpection_date
+        DATETIME dismantled_date
+        DATETIME received_date
+        VARCHAR out_diam
+        VARCHAR pump_brand
+        VARCHAR sand
+        VARCHAR mud
+        VARCHAR oil
+        VARCHAR scale
+        VARCHAR reason_of_failure
+        VARCHAR shop_finding1
+        VARCHAR shop_finding2
+        VARCHAR shop_finding3
+        VARCHAR shop_finding4
+        VARCHAR shop_finding5
+        VARCHAR recommendation
+        VARCHAR remark
+    }
+    
+    PRODUCTION_CHARTS {
+        INT chart_id PK
+        VARCHAR string_code
+        DATETIME test_date
+        DATETIME int_test_date
+        VARCHAR pump_fill
+        VARCHAR pump_slip
+        VARCHAR gross_disp
+        VARCHAR net_disp
+        VARCHAR spm
+        VARCHAR sl
+        VARCHAR tubing_press
+        VARCHAR csg_press_up
+        VARCHAR wht
+        VARCHAR tst_fluid
+        VARCHAR tst_oil
+        VARCHAR tst_water
+        VARCHAR wc
+        VARCHAR tst_oil_no_acc
+        VARCHAR alloc_fluid
+        VARCHAR alloc_oil
+        VARCHAR theor_fluid
+        VARCHAR theor_oil
+        VARCHAR job_code
+        VARCHAR yes_trun
+        DATETIME updated_date
+        VARCHAR inferred_bfpd
+        VARCHAR inferred_bwpd
+        VARCHAR inferred_bopd
+        VARCHAR freq
+        DATETIME start_date
+        DATETIME end_date
+        VARCHAR job_status
+        VARCHAR remark
+        VARCHAR job_detail_description
+        VARCHAR job_category
+        VARCHAR rig_code
+    }
+    
+    FACILITIES {
+        INT facility_id PK
+        VARCHAR facility_name
+        VARCHAR facility_type
+        VARCHAR location_description
+        DATETIME installed_date
+        VARCHAR capacity
+        VARCHAR operating_status
+    }
+    
+    DRILLING_OPERATIONS {
+        INT drilling_id PK
+        INT well_id FK
+        INT rig_id FK
+        DATETIME drilling_start_date
+        DATETIME drilling_end_date
+        VARCHAR drill_operator
+        VARCHAR remarks
+    }
+    
+    RIGS {
+        INT rig_id PK
+        VARCHAR rig_name
+        VARCHAR rig_type
+        VARCHAR manufacturer
+        DATETIME commissioning_date
+        DATETIME decommission_date
+    }
+    
+    MAINTENANCE_RECORDS {
+        INT maintenance_id PK
+        VARCHAR target_type
+        INT target_id
+        DATETIME maintenance_date
+        VARCHAR maintenance_type
+        VARCHAR performed_by
+        VARCHAR description
+    }
+    
+    INSPECTIONS {
+        INT inspection_id PK
+        VARCHAR target_type
+        INT target_id
+        DATETIME inspection_date
+        VARCHAR inspector
+        VARCHAR inspection_result
+        VARCHAR remarks
+    }
+    
+    RESERVOIRS {
+        INT reservoir_id PK
+        VARCHAR reservoir_name
+        VARCHAR associated_field
+        VARCHAR depth
+        VARCHAR porosity
+        VARCHAR permeability
+        INT well_id FK
+    }
+    
+    GEOLOGICAL_SURVEYS {
+        INT survey_id PK
+        INT well_id FK
+        DATETIME survey_date
+        VARCHAR geologist
+        VARCHAR summary
+        VARCHAR detailed_report
+    }
+    
+    CONTRACTORS {
+        INT contractor_id PK
+        VARCHAR contractor_name
+        VARCHAR service_offered
+        VARCHAR contact_info
+    }
+    
+    CONTRACTS {
+        INT contract_id PK
+        INT contractor_id FK
+        DATETIME start_date
+        DATETIME end_date
+        VARCHAR service_description
+        DECIMAL contract_value
+    }
+    
+    ENVIRONMENTAL_REPORTS {
+        INT report_id PK
+        VARCHAR target_type
+        INT target_id
+        DATETIME report_date
+        VARCHAR reporter
+        VARCHAR findings
+        VARCHAR compliance_status
+        VARCHAR remarks
+    }
+    
+    FIELD_OPERATIONS {
+        INT operation_id PK
+        INT well_id FK
+        DATETIME operation_date
+        VARCHAR operation_type
+        VARCHAR shift_leader
+        VARCHAR summary
+        VARCHAR remarks
+    }
+    
+    DCA {
+        INT dca_id PK
+        VARCHAR string_code
+        DATETIME test_date
+        DECIMAL test_fluid
+        DECIMAL test_oil
+        VARCHAR job_code
+    }
+
+    WELLBORE_COMPONENTS {
+        VARCHAR id_components PK
+        VARCHAR uwi
+        VARCHAR string_code
+        VARCHAR main_component
+        VARCHAR sub_component
+        VARCHAR icon_name
+        DATE install_date
+        INT top_md
+        INT bot_md
+        FLOAT od_inch
+        INT seq
+        VARCHAR remark
+    }
+
+    %% Relationships among primary domains
+    ROLES ||--o{ EXCEPTION_SIGNALS : "assigned to"
+    ROLES ||--o{ PASSED_SIGNALS : "assigned to"
+    ROLES ||--o{ WORKFLOW_STEPS : "assigned to"
+    WELLS ||--o{ WELL_LOCATIONS : "has"
+    WELLS ||--o{ WELL_STATUS : "has"
+    WELLS ||--o{ WELL_PRODUCTION : "has"
+    WELLS ||--o{ WELL_TESTS : "has"
+    WELLS ||--o{ WELL_TEST_METRICS : "has"
+    WELLS ||--o{ WELL_EXTRA_INFO : "has"
+    WELLS ||--o{ OUTSTANDING_EXCEPTIONS : "observed at"
+    WELLS ||--o{ OUTSTANDING_PASSEDS : "observed at"
+    WELLS ||--o{ DIFA : "inspected by"
+    WELLS ||--o{ PRODUCTION_CHARTS : "measured in"
+    WELLS ||--o{ DRILLING_OPERATIONS : "drilled by"
+    WELLS ||--o{ GEOLOGICAL_SURVEYS : "surveyed by"
+    WELLS ||--o{ FIELD_OPERATIONS : "operated in"
+    
+    FACILITIES ||--o{ ENVIRONMENTAL_REPORTS : "evaluated by"
+    FACILITIES ||--o{ INSPECTIONS : "inspected at"
+    RIGS ||--o{ DRILLING_OPERATIONS : "operated by"
+    
+    CONTRACTORS ||--o{ CONTRACTS : "engaged in"

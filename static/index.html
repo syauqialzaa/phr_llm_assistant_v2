@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHR LLM Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="connection-status" class="connection-status disconnected">Disconnected</div>
+    <div class="container">
+        <header>
+            <h1>PHR LLM Assistant</h1>
+            <div class="header-controls">
+                <div class="api-info">
+                    <button id="config-btn" class="config-button">⚙️ Configure API</button>
+                </div>
+            </div>
+        </header>
+        
+        <div class="chat-container">
+            <div id="chat-messages" class="chat-messages"></div>
+            
+            <div class="input-container">
+                <input type="text" id="question-input" placeholder="Ask a question in any language...">
+                <button onclick="sendQuestion()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/script.js"></script>
+</body>
+</html>
